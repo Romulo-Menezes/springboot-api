@@ -31,15 +31,7 @@ public class ProductService {
     }
 
     public Page<ProductModel> getAllProducts(Pageable pageable) {
-        Page<ProductModel> productPage = productRepository.findAll(pageable);
-        if (!productPage.isEmpty()) {
-            for (ProductModel product: productPage) {
-                UUID id = product.getIdProduct();
-                product.add(linkTo(methodOn(ProductController.class).getOneProduct(id)).withSelfRel());
-
-            }
-        }
-        return productPage;
+        return productRepository.findAll(pageable);
     }
 
     public Optional<ProductModel> getOneProduct(UUID id, int pageSize) {
